@@ -1,11 +1,11 @@
-const https = require("https");
-const fs=require("fs")
+const http = require("http");
+
 
 
 
 let peers=[];
 const initSocket=(app)=>{
-    const server = https.createServer(app);
+    const server = http.createServer(app);
     const io = require("socket.io")(server);
     io.sockets.on("error", e => console.log(e));
     io.sockets.on("connection", socket => {
