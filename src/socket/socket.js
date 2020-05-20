@@ -9,18 +9,11 @@ const initSocket=(app)=>{
     const io = require("socket.io")(server);
     io.sockets.on("error", e => console.log(e));
     io.sockets.on("connection", socket => {
-        socket.on("newPeer",(id)=>{
+        socket.on("newPeer",(id,peerID)=>{
 
-            if (peers.length>=2){
-                console.log("peers limit")
-                return;
-            }
-            if (peers[0]){
+            socket.to(peerID).emit("newPeer",id)
 
-                socket.to(peers[0]).emit("newPeer",id)
 
-            }
-            peers.push(id)
             console.log(peers)
 
         })
@@ -28,7 +21,6 @@ const initSocket=(app)=>{
 
         socket.on("disconnect", () => {
             socket.broadcast.emit("peerDc")
-            peers=peers.filter((peer)=>peer!==socket.id)
             console.log(peers)
         });
     });
