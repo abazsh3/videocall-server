@@ -10,7 +10,7 @@ const server=initSocket(app);
 app.use(cors());
 
 app.get("/", (req, res) => {
-    res.send("hello world")
+    res.send("v1")
 })
 
 server.listen(port, () => console.log(`Server is running on port ${port}`));
